@@ -20,6 +20,8 @@ jobs:
 
       - name: Weryfikacja instalacji
         run: ansible --version
-        
+
+      - name: Uruchomienie playbooka
+        run: ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
         
             
