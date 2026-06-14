@@ -51,4 +51,3 @@ jobs:
       - name: Run Ansible playbook on VPS
         run: |
           ansible-playbook -i ansible/inventory.ini ansible/install.yml
-          
