@@ -31,6 +31,24 @@ jobs:
           [vps]
           server ansible_host=${{secrets.VPS_HOST}} ansible_user=${{secrets.VPS_USER}}
 
+      - name: Clone or update repository on VPS
+        run: |
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} <<'EOF'
+          cd ~
+
+          if [ ! -d "Automatyzacja2/.git" ]; then
+            git clone git@github.com:CichyPLK/Automatyzacja2.git
+          else
+            echo "Repozytorium istnieje, wykonuje git pull"
+            cd Automatyzacja2
+            git pull origin main
+            cd ..
+          fi
+
+          ls -la
+          EOF
+
       - name: Run Ansible playbook on VPS
         run: |
           ansible-playbook -i ansible/inventory.ini ansible/install.yml
+          
